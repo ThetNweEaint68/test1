@@ -10,4 +10,9 @@ class Article extends Model
     {
     	return $this->belongsTo('App\User');
     }
+
+    public function comment() //<-s
+    {
+    	return $this->hasMany('App\Comment');
+    }
 }

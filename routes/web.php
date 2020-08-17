@@ -36,3 +36,6 @@ Route::get('/articles/{article}','ArticleController@show')->name('articles.show'
 Route::get('/articles/{article}/edit','ArticleController@edit')->name('articles.edit');
 Route::put('/articles/{article}','ArticleController@update')->name('articles.update');
 
+//Comment
+Route::post('/articles/{article}/comments', 'CommentController@store')->name('comments.store');
+
