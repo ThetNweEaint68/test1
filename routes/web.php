@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
 //Registration
 Route::get('/register', 'RegisterController@create')->name('register.create');
 Route::post('/register', 'RegisterController@store')->name('register.store');
@@ -24,10 +23,9 @@ Route::get('/register/{user}/edit','RegisterController@edit')->name('register.ed
 Route::patch('/register/{user}','RegisterController@update')->name('register.update');
 // '/user/{id}/edit'
 Route::get('/profile','RegisterController@index');
-
+//Authentication
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-
 //Articles
 Route::get('/articles','ArticleController@index')->name('articles.index');
 Route::post('/articles','ArticleController@store')->name('articles.store');
@@ -35,7 +33,5 @@ Route::get('/articles/create','ArticleController@create')->name('articles.create
 Route::get('/articles/{article}','ArticleController@show')->name('articles.show');
 Route::get('/articles/{article}/edit','ArticleController@edit')->name('articles.edit');
 Route::put('/articles/{article}','ArticleController@update')->name('articles.update');
-
 //Comment
 Route::post('/articles/{article}/comments', 'CommentController@store')->name('comments.store');
-

@@ -14,7 +14,8 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::latest()->get();
-        return view('articles.index',['articles'=> $articles]);
+
+        return view('articles.index', ['articles'=> $articles]);
     }
 
     /**
@@ -35,17 +36,21 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
-            'title'=>'required',
-            'excerpt'=> 'required',
-            'body'=>'required'
-        ]
-    );
+        request()->validate(
+            [
+                'title' => 'required',
+                'excerpt' => 'required',
+                'body' => 'required'
+            ]
+        );
+
         $article = new Article();
-        $article -> title = request('title');
-        $article -> excerpt = request('excerpt');
-        $article -> body = request('body');
+        $article->title = request('title');
+        $article->excerpt = request('excerpt');
+        $article->body = request('body');
+        $article->fill($request->all());
         $request->user()->articles()->save($article);
+
         return redirect('/articles');
     }
 
@@ -57,7 +62,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        return view('articles.show',['article'=> $article]);
+        return view('articles.show', ['article'=> $article]);
     }
 
     /**
@@ -68,7 +73,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        return view('articles.edit',compact('article'));
+        return view('articles.edit', compact('article'));
     }
 
     /**
@@ -81,28 +86,19 @@ class ArticleController extends Controller
     public function update(Request $request, $id)
     {
         request()->validate([
-            'title'=>'required',
-            'excerpt'=> 'required',
-            'body'=>'required'
-        ]
-    );
+                'title'=>'required',
+                'excerpt'=> 'required',
+                'body'=>'required'
+            ]
+        );
+
         $article = Article::find($id);
-        $article -> title = request('title');
-        $article -> excerpt = request('excerpt');
-        $article -> body = request('body');
+        $article->title = request('title');
+        $article->excerpt = request('excerpt');
+        $article->body = request('body');
         
         $request->user()->articles()->save($article);
-        return redirect('/articles');
-            }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+        return redirect('/articles');
+    }  
 }
