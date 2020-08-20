@@ -12,7 +12,7 @@
 
     <div class="comments">
       <ul class="list-group">
-        @foreach ($article->comment as $comment)
+        @foreach ($article->comments as $comment)
         <li class="list-group-item">
           <strong>
             Posted by {{ $comment->user->name }} 

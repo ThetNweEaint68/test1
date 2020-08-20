@@ -35,3 +35,7 @@ Route::get('/articles/{article}/edit','ArticleController@edit')->name('articles.
 Route::put('/articles/{article}','ArticleController@update')->name('articles.update');
 //Comment
 Route::post('/articles/{article}/comments', 'CommentController@store')->name('comments.store');
+//files storage
+Route::get('/files/upload','ResourceController@uploadForm')->name('resource.uploadForm');
+Route::post('/files/upload','ResourceController@uploadFile')->name('resource.uploadFile');
+Route::get('/files/view','ResourceController@index')->name('resource.index');
