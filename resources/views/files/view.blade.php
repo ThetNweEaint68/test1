@@ -10,9 +10,11 @@
          <tr>
             <th>Name</th>
          </tr>
-         @foreach($resources as $row)
+         @foreach($resources as $resource)
          <tr>
-            <td>{{ $row['name'] }}</td>
+            <td>
+              <a href="{{ route('resource.show', ['id' => $resource->id]) }}">{{ $resource->name }}</a>
+            </td>
          </tr>
           @endforeach
       </table>	

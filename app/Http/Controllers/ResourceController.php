@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Resource;
 
-use Storage;
+use Response;
 
 use Illuminate\Http\Request;
 
@@ -12,7 +12,7 @@ class ResourceController extends Controller
 {
     public function index()
     {
-        $resources = Resource::all()->toArray();
+        $resources = Resource::all();
         
         return view('files.view', compact('resources'));
     }
@@ -28,7 +28,6 @@ class ResourceController extends Controller
         {
             $filename = $request->file->getClientOriginalName();
             $fileurl = $request->file->store('public/files');
-            //$file->storeAs('public/',files);
             $filepath = $request->file->getRealPath();
             $filetype = $request->file->getClientOriginalExtension();
             $resource = new Resource();
@@ -38,15 +37,16 @@ class ResourceController extends Controller
             $resource->type = $filetype;
             $resource->save();
 
-            //$resource->storeAs('public/',$files);
-            //return response()->file($fileurl);
             return redirect()->back();
         }
     }
 
-    public function show()
+    public function show($id)
     {
-        return Storage::files('public/files');
+        $resource = Resource::findOrFail($id);
+        $filepath = storage_path('app/' . $resource->url);
+
+        return response()->file($filepath);
     }
 
 }

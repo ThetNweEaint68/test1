@@ -11,6 +11,9 @@
         <div class="form-group">
             <input type="submit" class="form-control">
         </div>
+        @foreach($resources as $resource)
+        <img src="{{ asset('/storage/' . $resource->id)}}" class="img-thumbnail" alt="Responsive image">
+        @endforeach
     </form>
 </div>
 @endsection
